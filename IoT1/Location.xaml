@@ -17,6 +17,7 @@
             <RowDefinition Height="*" />
 
         </Grid.RowDefinitions>
+        
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Latitude: " Margin="10" VerticalAlignment="Center" />
             <TextBox x:Name="LatitudeTextBox" Width="100" Margin="10" VerticalAlignment="Center" />
@@ -24,6 +25,7 @@
             <TextBox x:Name="LongitudeTextBox" Width="100" Margin="10" VerticalAlignment="Center" />
             <Button x:Name="Update" Content="Update" Margin="10" Click="Update_Click" />
         </StackPanel>
+        
         <m:Map x:Name="TestLocation" Grid.Row="1" CredentialsProvider="xsIr9HlzKsC6HIMKJvkG~jgNoZqM-GECh6RGY7BAGkQ~Ah14bzuRjrXRfH4Vm3ORKIM6Oic1kLFKRiZP6KwauOuPsd3XKmAqc0bztD3aaIWa" Margin="10,10,247,24" Grid.RowSpan="2"/>
     </Grid>
         

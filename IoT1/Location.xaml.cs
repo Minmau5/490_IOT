@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace IoT1
 {
@@ -31,9 +32,13 @@ namespace IoT1
 
             if(double.TryParse(LatitudeTextBox.Text,out latitude) && double.TryParse(LongitudeTextBox.Text,out longitude))
             {
-                Location location= new Location(latitude, longitude);
-                TestLocation.Center = location;
-                TestLocation.ZoomLevel = 15;
+               Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
+                TestLocation.Center= location;
+                TestLocation.ZoomLevel= 20;
+
+                Pushpin pushpin= new Pushpin();
+                pushpin.Location = location;
+                TestLocation.Children.Add(pushpin);
             }
         }
     }
