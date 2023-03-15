@@ -24,5 +24,17 @@ namespace IoT1
         {
             InitializeComponent();
         }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            double latitude, longitude;
+
+            if(double.TryParse(LatitudeTextBox.Text,out latitude) && double.TryParse(LongitudeTextBox.Text,out longitude))
+            {
+                Location location= new Location(latitude, longitude);
+                TestLocation.Center = location;
+                TestLocation.ZoomLevel = 15;
+            }
+        }
     }
 }

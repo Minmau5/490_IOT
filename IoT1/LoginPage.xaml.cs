@@ -51,7 +51,7 @@ namespace IoT1
                 {
                     MainWindow dashboard = new MainWindow();
                     dashboard.Show();
-                    MessageBox.Show("Login Successful");
+                    MessageBox.Show("Login Successfull    ");
                     this.NavigationService.Navigate(null);
                 }
 
