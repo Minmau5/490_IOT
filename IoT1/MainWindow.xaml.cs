@@ -334,6 +334,11 @@ namespace IoT1
             MainFrame1.Content = new UserPage();
         }
 
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame1.Content = new SettingsPage();
+        }
+
         private void AddNotification_Click(object sender, RoutedEventArgs e)
         {
             var newNotification = new Notification { Message = "New notification received yay!", Timestamp = DateTime.Now };
