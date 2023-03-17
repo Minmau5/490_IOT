@@ -19,7 +19,7 @@ using System.Windows.Threading;
 using IOT.Monitoring;
 using System.Threading.Channels;
 using System.Threading;
-
+using IoT1.Model;
 
 namespace IoT1
 {
@@ -29,6 +29,8 @@ namespace IoT1
     public partial class MainWindow : Window
     {
         private NotificationsViewModel _viewModel;
+        private ConnectViewModel connectCtx;
+        private PacketModel packets;
 
         public MainWindow()
         {
@@ -38,6 +40,8 @@ namespace IoT1
             InitializeComponent();
             _viewModel = new NotificationsViewModel();
             DataContext = _viewModel;
+            packets = new PacketModel();
+            connectCtx = new ConnectViewModel(packets);
 
             /*
             bgWorker = new BackgroundWorker
@@ -55,9 +59,7 @@ namespace IoT1
 
         private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
         {
-            LandingWindow landingWindow = new LandingWindow();
-            landingWindow.Show();
-            this.Close();
+            
         }
 
         /*
@@ -326,7 +328,7 @@ namespace IoT1
         }
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame1.Content = new HomePage();
+            MainFrame1.Content = new HomePage(connectCtx);
         }
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
@@ -347,7 +349,7 @@ namespace IoT1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame1.Content = new Location();
+            MainFrame1.Content = new Location(packets);
         }
     }
 }

@@ -11,7 +11,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        Title="MainWindow" Height="740" Width="1020"
+        Title="MainWindow" Height="740" Width="1020" MinWidth="1020"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
        >
@@ -28,7 +28,7 @@
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
 
@@ -150,7 +150,7 @@
             </StackPanel>
 
 
-            <Frame x:Name="MainFrame1" Grid.Column="1" Grid.Row="1" Margin="20" NavigationUIVisibility="Hidden"/>
+            <Frame Width="auto" x:Name="MainFrame1" Grid.Column="1" Grid.Row="1" Margin="20" NavigationUIVisibility="Hidden"/>
 
 
 
