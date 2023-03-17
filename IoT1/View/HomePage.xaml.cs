@@ -82,9 +82,16 @@ namespace IoT1
                     {
                         Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
                         TestLocation.Center = location;
-                        //TestLocation.ZoomLevel = 18;
 
-                        Pushpin pushpin = new Pushpin();
+                        
+                        Pushpin pushpin = new Pushpin
+                        {
+                            Background = Brushes.Black
+                        };
+
+                        pushpin.Background = Brushes.Black;
+                        pushpin.Content = sender;
+
                         pushpin.Location = location;
                         TestLocation.Children.Add(pushpin);
                     }
