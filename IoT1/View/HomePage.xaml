@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:IoT1" xmlns:view="clr-namespace:IoT1.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="680" d:DesignWidth="800"
       Title="HomePage"
-      Background="Transparent"
+      Background="#c6dddd"
       xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
       
       >
@@ -16,14 +16,14 @@
 
     <Grid Width="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="300" />
-            <ColumnDefinition MinWidth="300"/>
+            <ColumnDefinition MinWidth="320" />
+            <ColumnDefinition MinWidth="320"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="128"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="128"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderThickness="0.5" Margin ="4" BorderBrush="DarkGray">
@@ -108,14 +108,12 @@
 
             </StackPanel>
         </Border>
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8" VerticalAlignment="Bottom" >
 
-        <view:Connect Grid.Row="4" Grid.Column="0"></view:Connect>
+            <m:Map x:Name="TestLocation" CredentialsProvider="xsIr9HlzKsC6HIMKJvkG~jgNoZqM-GECh6RGY7BAGkQ~Ah14bzuRjrXRfH4Vm3ORKIM6Oic1kLFKRiZP6KwauOuPsd3XKmAqc0bztD3aaIWa" Center="45.49383925519548,-73.57699117825592" ZoomLevel="10" Height="256" Width="auto" Mode="AerialWithLabels"/>
+            <view:Connect Height="72" VerticalAlignment="Bottom" Margin="0 20 0 0" />
+        </StackPanel>
 
-        <Grid Grid.Row="4" Grid.Column="1" Height="auto" MinWidth="300" Margin="5">
-            <m:Map x:Name="TestLocation" CredentialsProvider="xsIr9HlzKsC6HIMKJvkG~jgNoZqM-GECh6RGY7BAGkQ~Ah14bzuRjrXRfH4Vm3ORKIM6Oic1kLFKRiZP6KwauOuPsd3XKmAqc0bztD3aaIWa" Center="45.49383925519548,-73.57699117825592" ZoomLevel="18" Height="auto" Width="auto" Mode="AerialWithLabels"/>
-
-        </Grid>
-        
 
     </Grid>
 
