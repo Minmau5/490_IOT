@@ -345,5 +345,9 @@ namespace IoT1
             (DataContext as NotificationsViewModel).AddNotification(newNotification);
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame1.Content = new Location();
+        }
     }
 }

@@ -118,7 +118,7 @@
                 <!--Stations Button-->
                 <Button Style="{StaticResource MenuButton}"
                     Margin="0 2 0 0"
-                    Click="Button_Click_Dashboard">
+                    Click="Button_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="140">
                         <Image Source="\Images\stations.png" Height="27" Width="27" Margin="0 2 2 0" HorizontalAlignment="Left"/>
                         <TextBlock Text="Stations" FontSize="22" Margin="5 5 0 2"/>
