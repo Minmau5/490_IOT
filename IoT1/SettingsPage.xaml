@@ -1,0 +1,57 @@
+﻿<Page x:Class="IoT1.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:IoT1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SettingsPage"
+      Background="Lavender"
+      >
+    
+    <!--
+    <Grid>
+        <Label Content="Polling Frequency (seconds):" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="PollingFrequencyTextBox" HorizontalAlignment="Left" Height="23" Margin="220,10,0,0" TextWrapping="Wrap" Text="{Binding PollingFrequency}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="gRPC IP Address:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="GRpcIPAddressTextBox" HorizontalAlignment="Left" Height="23" Margin="220,50,0,0" TextWrapping="Wrap" Text="{Binding GRpcIPAddress}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Camera API Server:" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="CameraApiServerTextBox" HorizontalAlignment="Left" Height="23" Margin="220,90,0,0" TextWrapping="Wrap" Text="{Binding CameraApiServer}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Database Connection String:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="DatabaseConnectionStringTextBox" HorizontalAlignment="Left" Height="23" Margin="220,130,0,0" TextWrapping="Wrap" Text="{Binding DatabaseConnectionString}" VerticalAlignment="Top" Width="280"/>
+        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}"/>
+    </Grid>
+    -->
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 20 0 0" Text="Polling Frequency:"/>
+        <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Margin="20" Maximum="60" Value="{Binding PollingFrequency}" />
+
+        <TextBlock  Grid.Row="1" Grid.Column="0" Margin="0 20 0 0" Text="gRPC IP Address:"/>
+        <TextBox Name="GRPCIpAddressTextBox" Grid.Row="1" Grid.Column="1" Margin="20" Width="200" HorizontalAlignment="Left" Text="{Binding PreviousGRPCIpAddress, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+
+        <TextBlock  Grid.Row="2" Grid.Column="0" Margin="0 20 0 0" Text="Camera API Server:"/>
+        <TextBox Name="CameraApiServerTextBox" Grid.Row="2" Grid.Column="1" Margin="20" Width="200" HorizontalAlignment="Left" Text="{Binding PreviousCameraApiServer, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0 20 0 0" Text="Database Connection String:"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="20" Width="200" HorizontalAlignment="Left" Text="{Binding PreviousDatabaseConnectionString, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+
+        <Button Grid.Row="4" Grid.Column="1" Content="Save" Width="80" HorizontalAlignment="Left" Margin="20" Command="{Binding SaveCommand}" />
+    </Grid>
+    
+</Page>

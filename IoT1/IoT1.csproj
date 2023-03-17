@@ -127,6 +127,12 @@
     <Compile Include="RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="SettingsModel.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsViewModel.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
@@ -172,6 +178,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
