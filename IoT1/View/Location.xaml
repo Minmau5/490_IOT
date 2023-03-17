@@ -11,7 +11,7 @@
       Background="Beige">
 
     <Grid>
-        <m:Map x:Name="TestLocation" CredentialsProvider="xsIr9HlzKsC6HIMKJvkG~jgNoZqM-GECh6RGY7BAGkQ~Ah14bzuRjrXRfH4Vm3ORKIM6Oic1kLFKRiZP6KwauOuPsd3XKmAqc0bztD3aaIWa" Center="45.49383925519548,-73.57699117825592" ZoomLevel="18" Margin="10,10,247,24" Height="200" Width="auto" Mode="AerialWithLabels"/>
+
     </Grid>
         
 

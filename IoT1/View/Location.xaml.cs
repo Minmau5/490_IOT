@@ -30,34 +30,11 @@ namespace IoT1
 
             this.packets = model;
 
-            this.packets.PropertyChanged += Packets_PropertyChanged;
 
             
         }
 
-        private void Packets_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => {
-                if ((int)sender == 4)
-                {
-                    var coords = e.PropertyName.Split(',');
 
-                    if (coords.Length != 2)
-                        return;
-
-                    if (double.TryParse(coords[0], out double latitude) && double.TryParse(coords[1], out double longitude))
-                    {
-                        Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
-                        TestLocation.Center = location;
-                        TestLocation.ZoomLevel = 18;
-
-                        Pushpin pushpin = new Pushpin();
-                        pushpin.Location = location;
-                        TestLocation.Children.Add(pushpin);
-                    }
-                }
-            }));
-        }
 
     }
 }
