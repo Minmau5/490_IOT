@@ -68,8 +68,17 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="Namotion.Reflection, Version=2.1.0.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\Namotion.Reflection.2.1.0\lib\net45\Namotion.Reflection.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NJsonSchema, Version=10.8.0.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.10.8.0\lib\net45\NJsonSchema.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.Core, Version=13.18.2.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Core.13.18.2\lib\net45\NSwag.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -92,6 +101,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Threading.Channels, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Channels.7.0.0\lib\net462\System.Threading.Channels.dll</HintPath>
     </Reference>
@@ -121,38 +131,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Location.xaml.cs">
+    <Compile Include="View\Location.xaml.cs">
       <DependentUpon>Location.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterPage.xaml.cs">
+    <Compile Include="Model\ConnectionViewModel.cs" />
+    <Compile Include="Model\Command\Connection.cs" />
+    <Compile Include="Model\PacketModel.cs" />
+    <Compile Include="Model\PacketViewModel.cs" />
+    <Compile Include="Model\Command\StreamPackets.cs" />
+    <Compile Include="View\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RelayCommand.cs" />
-    <Compile Include="SettingsModel.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
+    <Compile Include="Model\Command\RelayCommand.cs" />
+    <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsViewModel.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserInputWindow.xaml.cs">
+    <Compile Include="Model\SettingsViewModel.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="View\UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserPage.xaml.cs">
+    <Compile Include="View\UserPage.xaml.cs">
       <DependentUpon>UserPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="HomePage.xaml">
+    <Compile Include="View\Connect.xaml.cs">
+      <DependentUpon>Connect.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LandingWindow.xaml">
+    <Page Include="View\Location.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Location.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LoginPage.xaml">
+    <Page Include="View\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,39 +178,40 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HomePage.xaml.cs">
+    <Compile Include="View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LandingWindow.xaml.cs">
-      <DependentUpon>LandingWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LoginPage.xaml.cs">
+    <Compile Include="View\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RegisterPage.xaml">
+    <Page Include="View\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsPage.xaml">
+    <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInputWindow.xaml">
+    <Page Include="View\UserInputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserPage.xaml">
+    <Page Include="View\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Connect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notification.cs" />
-    <Compile Include="NotificationsViewModel.cs" />
+    <Compile Include="Model\Notification.cs" />
+    <Compile Include="Model\NotificationsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -242,12 +257,6 @@
     <Resource Include="Assets\account.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GrpcClient\GrpcClient.csproj">
-      <Project>{a34c6512-2f18-42d7-a2dd-4c1ed61aa6f9}</Project>
-      <Name>GrpcClient</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\account.png" />
     <Resource Include="Images\firefighter.png" />
     <Resource Include="Images\firefighter1.png" />
@@ -255,6 +264,12 @@
     <Resource Include="Images\settings.png" />
     <Resource Include="Images\stations.png" />
     <Resource Include="Images\users.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GrpcClient\GrpcClient.csproj">
+      <Project>{a34c6512-2f18-42d7-a2dd-4c1ed61aa6f9}</Project>
+      <Name>GrpcClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
