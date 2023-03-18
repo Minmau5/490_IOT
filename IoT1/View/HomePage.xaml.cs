@@ -60,12 +60,16 @@ namespace IoT1
 
 
             //heart_rate.Text = packet.GetPackets(0).Data.ToStringUtf8();
-            //co_2.Text = "419.03 ppm";
-            //temp.Text = "28 C";
-            //oxygen.Text = "85 mm";
+            heart_rate.Text = "69 BPM";
+            co_2.Text = "40 ppm";
+            temp.Text = "28 C";
+            oxygen.Text = "85 mm";
 
             // Subscribe to the TextChanged event of the heart rate TextBox
             heart_rate.TextChanged += HeartRate_TextChanged;
+            co_2.TextChanged += CO_TextChanged;
+            oxygen.TextChanged += Oxygen_TextChanged;
+            temp.TextChanged += Temp_TextChanged;
         }
 
         private void Packets_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -92,6 +96,8 @@ namespace IoT1
             }));
         }
 
+        //
+        //Heart Rate Text Change Method
         private void HeartRate_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Parse the heart rate value
@@ -101,16 +107,91 @@ namespace IoT1
                 if (heartRate < 60 || heartRate > 140)
                 {
                     // Set text color to red
-                    heart_rate.Foreground = Brushes.Red;
+                    heart_rate.Foreground = Brushes.White;
+                    heart_rate.Background = Brushes.Red;
                 }
                 else
                 {
                     // Set text color to default
-                    heart_rate.Foreground = Brushes.Black;
+                    heart_rate.Foreground = Brushes.White;
+                    heart_rate.Background = Brushes.Green;
                 }
             }
         }
 
+        //
+        //CO Text Change Method
+        private void CO_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Parse the co_2 value
+            if (int.TryParse(co_2.Text.Replace("ppm", "").Trim(), out int co2))
+            {
+                // Check if co_2 is above 50
+                if (co2 > 50)
+                {
+                    // Set text color to red
+                    co_2.Foreground = Brushes.White;
+                    co_2.Background = Brushes.Red;
+                }
+                else
+                {
+                    // Set text color to default
+                    co_2.Foreground = Brushes.White;
+                    co_2.Background = Brushes.Green;
+                }
+            }
+        }
+
+        //
+        //Oxygen Text Change Method
+        private void Oxygen_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Parse the oxygen value
+            if (int.TryParse(oxygen.Text.Replace("mm", "").Trim(), out int oxygenValue))
+            {
+                // Check if oxygen is below 80 or above 100
+                if (oxygenValue < 80 || oxygenValue > 100)
+                {
+                    // Set text color to red
+                    oxygen.Foreground = Brushes.White;
+                    oxygen.Background = Brushes.Red;
+                }
+                else
+                {
+                    // Set text color to default
+                    oxygen.Foreground = Brushes.White;
+                    oxygen.Background = Brushes.Green;
+                    //oxygen.Foreground = Brushes.Black;
+                }
+            }
+        }
+
+
+        //
+        //Temperature Text Change Method
+        private void Temp_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Parse the temperature value
+            if (double.TryParse(temp.Text.Replace("C", "").Trim(), out double temperature))
+            {
+                // Check if temperature is above 65 C
+                if (temperature > 65)
+                {
+                    // Set text color to red
+                   temp.Foreground = Brushes.White;
+                   temp.Background= Brushes.Red;
+                   //temp.Foreground = Brushes.Red;
+                }
+                else
+                {
+                    // Set text color to default
+                    temp.Foreground = Brushes.White;
+                    temp.Background = Brushes.Green;
+
+                    //temp.Foreground = Brushes.Black;
+                }
+            }
+        }
 
 
 

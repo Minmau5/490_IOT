@@ -173,11 +173,7 @@
             <Grid Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Add Notification" Click="AddNotification_Click" Width="100" Height="20" HorizontalAlignment="Left" Margin="10 10 10 10"/>
-                    <Border CornerRadius="15" BorderThickness="0.5" BorderBrush="Black" Height="30">
-                        
-                        <TextBox x:Name="searchTextBox" Width="200" Height="30" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0"/>
-                    </Border>
-                    <Button Margin="5" Width="60" Height="20" HorizontalAlignment="Right">Search</Button>
+                     
                 </StackPanel>
             </Grid>
             
