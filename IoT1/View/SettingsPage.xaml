@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage"
-      Background="Lavender"
+      Background="#c6dddd"
       >
     
     <!--
@@ -40,18 +40,26 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 20 0 0" Text="Polling Frequency:"/>
-        <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Margin="20" Maximum="60" Value="{Binding PollingFrequency}" />
+        <Border CornerRadius="5" Background="Transparent" Grid.Row="0" Grid.Column="1" Margin="20" Width="224" Height="24" HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
+            <TextBox Name="PollingFreqTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PollingFrequency, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+        </Border>
 
         <TextBlock  Grid.Row="1" Grid.Column="0" Margin="0 20 0 0" Text="gRPC IP Address:"/>
-        <TextBox Name="GRPCIpAddressTextBox" Grid.Row="1" Grid.Column="1" Margin="20" Width="200" HorizontalAlignment="Left" Text="{Binding PreviousGRPCIpAddress, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
-
+        <Border CornerRadius="5" Background="Transparent" Grid.Row="1" Grid.Column="1" Margin="20" Width="224" Height="24"  HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
+            <TextBox Name="GRPCIpAddressTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PreviousGRPCIpAddress, Mode=OneWay}" GotFocus="TextBox_GotFocus" />
+        </Border>
+        
         <TextBlock  Grid.Row="2" Grid.Column="0" Margin="0 20 0 0" Text="Camera API Server:"/>
-        <TextBox Name="CameraApiServerTextBox" Grid.Row="2" Grid.Column="1" Margin="20" Width="200" HorizontalAlignment="Left" Text="{Binding PreviousCameraApiServer, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+        <Border CornerRadius="5" Background="Transparent" Grid.Row="2" Grid.Column="1" Margin="20" Width="224" Height="24" HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
+            <TextBox Name="CameraApiServerTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PreviousCameraApiServer, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+        </Border>
 
         <TextBlock Grid.Row="3" Grid.Column="0" Margin="0 20 0 0" Text="Database Connection String:"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="20" Width="200" HorizontalAlignment="Left" Text="{Binding PreviousDatabaseConnectionString, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+        <Border CornerRadius="5" Background="Transparent" Grid.Row="3" Grid.Column="1" Margin="20" Width="224" Height="24" HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
+            <TextBox Background="Transparent" BorderThickness="0" Text="{Binding PreviousDatabaseConnectionString, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
+        </Border>
 
-        <Button Grid.Row="4" Grid.Column="1" Content="Save" Width="80" HorizontalAlignment="Left" Margin="20" Command="{Binding SaveCommand}" />
+        <Button Grid.Row="4" Grid.Column="1" Content="Save" Width="80" HorizontalAlignment="Left" Margin="20" Command="{Binding SaveCommand}" Background="DarkSlateGray" BorderBrush="#FFDCAFAF" FontWeight="DemiBold" Height="32" FontSize="16" Foreground="White" Style="{StaticResource RoundedButton}" />
     </Grid>
     
 </Page>

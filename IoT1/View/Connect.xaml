@@ -6,39 +6,70 @@
              xmlns:local="clr-namespace:IoT1.View"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="IoT1.View.Connect"
              mc:Ignorable="d" 
+             Background="#c6dddd"
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid>
+        
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!--
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        -->
 
-        <Grid Grid.Column="0">
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            
             <Label Content="Endpoint Address" Grid.Row="0" Grid.Column="0"/>
-            <TextBox Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IpAddressEnabled}" Margin="5 5 5 5" Grid.Row="1" Grid.Column="0"/>
+            <Border CornerRadius="5" Background="Transparent" Grid.Row="1" Grid.Column="0" Margin="4 8 4 8" BorderThickness="0.5" BorderBrush="Black">
+                <TextBox Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IpAddressEnabled}" Background="Transparent" BorderThickness="0" Margin="5 5 5 5"/>
+            </Border>
+
+            
+            <Button x:Name="ConenctEndpoint" Content="Connect" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8" Width="80" Height="24" Grid.Column="1" Grid.Row="1" Command="{Binding ConnectTogRPC}"  Style="{StaticResource RoundedButton}" Background="DarkSlateGray" Foreground="White"/>
+            <Grid Grid.Column="2" Grid.Row="1">
+                <Button x:Name="StartStopEndpoint" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 8 8 8" Width="auto" Height="auto" Command="{Binding StartStopComm}" Background="Transparent" BorderThickness="0">
+                    <Grid>
+                        <Path Fill="Green" Data="M3,0 L15,7.5 L3,15 Z" Stretch="Uniform" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Button>
+                <Button VerticalAlignment="Center" Margin="40 8 8 8" Width="auto" Height="auto" HorizontalAlignment="Left" Command="{Binding StopEndpoint}" Background="Transparent" BorderThickness="0">
+                    <Grid>
+                        <Rectangle Fill="Red" Width="20" Height="20" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Button>
+            </Grid>
         </Grid>
 
+        
 
 
-        <Button x:Name="ConenctEndpoint" Content="Connect" VerticalAlignment="Center" Margin="5" Width="auto" Height="auto" Command="{Binding ConnectTogRPC}" Grid.Column="1"/>
+            <!--
+            <Button x:Name="StartStopEndpoint" Content="Start" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 8 8 8" Width="80" Height="auto" Command="{Binding StartStopComm}"  />
+            <Button Content="Stop" VerticalAlignment="Center" Margin="120 8 8 8" Width="80" Height="auto" HorizontalAlignment="Left" Command="{Binding StopEndpoint}" />
+            -->
+            
+        
 
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Button x:Name="StartStopEndpoint" Content="Start" VerticalAlignment="Center" Margin="5" Width="auto" Height="auto" Command="{Binding StartStopComm}"  Grid.Row="0"/>
-            <Button Content="Stop" VerticalAlignment="Center" Margin="5" Width="auto" Height="auto" Command="{Binding StopEndpoint}"  Grid.Row="1"/>
-        </Grid>
+
+
+ 
 
 
 

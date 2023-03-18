@@ -42,6 +42,7 @@ namespace IoT1
             {
                 textBox.GotFocus -= TextBox_GotFocus;
                 string propertyName = "";
+                if (textBox.Name == "PollingFreqTextBox") propertyName = "PollingFrequency";
                 if (textBox.Name == "GRPCIpAddressTextBox") propertyName = "GRPCIpAddress";
                 if (textBox.Name == "CameraApiServerTextBox") propertyName = "CameraApiServer";
                 if (textBox.Name == "DatabaseConnectionStringTextBox") propertyName = "DatabaseConnectionString";

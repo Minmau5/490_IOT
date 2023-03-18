@@ -135,5 +135,7 @@ namespace IoT1
         {
             MainFrame1.Content = new Location(packets);
         }
+
+
     }
 }
