@@ -49,7 +49,7 @@
         </Border>
 
         <Border Grid.Row="2" BorderThickness="0.5" Margin ="4" BorderBrush="DarkGray">
-            <TextBlock Grid.Row="0" Text="CO" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
+            <TextBlock Grid.Row="0" Text="CO Level" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
 
         </Border>
         <Border Grid.Row="3" BorderThickness="1" Margin="10" BorderBrush="DarkGray" CornerRadius="2,2,2,2">
@@ -71,7 +71,7 @@
 
         <!--Oxygen-->
         <Border Grid.Row="0" Grid.Column="1" BorderThickness="0.5" Margin ="4" BorderBrush="DarkGray">
-            <TextBlock Grid.Row="0" Text="Oxygen levels" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
+            <TextBlock Grid.Row="0" Text="Blood Oxygen Level" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
 
         </Border>
         <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" Margin="10" BorderBrush="DarkGray" CornerRadius="2,2,2,2">
