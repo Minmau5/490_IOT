@@ -43,6 +43,7 @@ namespace IoT1
             packets = new PacketModel();
             connectCtx = new ConnectViewModel(packets);
 
+            connectCtx.PropertyChanged += ConnectCtx_PropertyChanged;
             /*
             bgWorker = new BackgroundWorker
             {
@@ -56,6 +57,28 @@ namespace IoT1
             */
 
         }
+
+        private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "start" && connectCtx.client != null)
+            {
+                _viewModel.AddNotification(new Notification
+                {
+                    Message = String.Format("New client has been connected to {0} ", connectCtx.IpAddress),
+                    Timestamp = DateTime.Now
+                });
+            }
+
+            else if (e.PropertyName == "stop" && connectCtx.client == null)
+            {
+                _viewModel.AddNotification(new Notification
+                {
+                    Message = String.Format("Connection has stopped"),
+                    Timestamp = DateTime.Now
+                });
+            }
+        }
+
 
         private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
         {
