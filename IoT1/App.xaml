@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:IoT1"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Splash.xaml">
     <Application.Resources>
 
         <Style x:Key="topButton" TargetType="Button">
