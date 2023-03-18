@@ -1,4 +1,5 @@
-﻿using IoT1.Model;
+﻿using IOT.Monitoring;
+using IoT1.Model;
 using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace IoT1
 
                     var pack = y.PropertyName.Split(',');
 
-                    switch ((int)x)
+                    switch (((Packet)x).Id)
                     {
                         case 0:
                             heart_rate.Text = String.Format("{0:0.## BPM}", float.Parse(pack[0]));
@@ -74,8 +75,9 @@ namespace IoT1
 
         private void Packets_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            var packet = (Packet)sender;
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => {
-                if ((int)sender == 4)
+                if (packet.Id == 4 && packet.Type != TYPE.Err)
                 {
                     var coords = e.PropertyName.Split(',');
 
@@ -86,9 +88,16 @@ namespace IoT1
                     {
                         Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
                         TestLocation.Center = location;
-                        //TestLocation.ZoomLevel = 18;
 
-                        Pushpin pushpin = new Pushpin();
+                        
+                        Pushpin pushpin = new Pushpin
+                        {
+                            Background = Brushes.Black
+                        };
+
+                        pushpin.Background = Brushes.Black;
+                        pushpin.Content = packet.Id;
+
                         pushpin.Location = location;
                         TestLocation.Children.Add(pushpin);
                     }
