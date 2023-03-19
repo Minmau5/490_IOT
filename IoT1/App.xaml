@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:IoT1"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="Splash.xaml">
+`             StartupUri="MainWindow.xaml">
     <Application.Resources>
-
         <ResourceDictionary>
             <!-- Existing styles -->
             <Style x:Key="topButton" TargetType="Button">
@@ -19,11 +18,12 @@
                 <Setter Property="BorderThickness" Value="0" />
             </Style>
 
+
+
             <!-- Merged dictionaries -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ButtonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>

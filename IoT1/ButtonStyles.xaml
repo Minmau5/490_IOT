@@ -21,4 +21,18 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="OpacityOnClickButton" TargetType="ToggleButton">
+        <Setter Property="Opacity" Value="1"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
 </ResourceDictionary>
