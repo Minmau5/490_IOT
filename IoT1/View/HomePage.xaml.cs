@@ -41,15 +41,15 @@ namespace IoT1
                     switch (((Packet)x).Id)
                     {
                         case 0:
-                            heart_rate.Text = String.Format("{0:0.## BPM}", float.Parse(pack[0]));
+                            temp.Text = String.Format("{0:0.## C}", float.Parse(pack[0]));
                             break;
                         case 1:
                             co_2.Text = String.Format("{0:0.## ppm}", float.Parse(pack[0]));
                             break;
                         case 2:
-                            temp.Text = String.Format("{0:0.## C}", float.Parse(pack[0]));
+                            heart_rate.Text = String.Format("{0:0.## BPM}", float.Parse(pack[0]));
                             break;
-                        case 4:
+                        case 3:
                             oxygen.Text = String.Format("{0:0.## mm}", float.Parse(pack[0]));
                             break;
                     }
