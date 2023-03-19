@@ -20,6 +20,7 @@ using IOT.Monitoring;
 using System.Threading.Channels;
 using System.Threading;
 using IoT1.Model;
+using System.Net.PeerToPeer;
 
 namespace IoT1
 {
@@ -42,8 +43,12 @@ namespace IoT1
             DataContext = _viewModel;
             packets = new PacketModel();
             connectCtx = new ConnectViewModel(packets);
+            redhat_id.Text = "Redhat Agent #12345";
 
-            connectCtx.PropertyChanged += ConnectCtx_PropertyChanged;
+            
+
+            connectCtx.PropertyChanged += 
+            ;
             /*
             bgWorker = new BackgroundWorker
             {
@@ -57,6 +62,116 @@ namespace IoT1
             */
 
         }
+
+        /*
+        // Overloaded constructor to accept the username and then display it at the top of the page
+        
+        public MainWindow() : this(string.Empty)
+        {
+        }
+
+        // Overloaded constructor to accept the username
+        public MainWindow(string username)
+        {
+            InitializeComponent();
+            redhat_id.Text = username;
+
+            _viewModel = new NotificationsViewModel();
+            DataContext = _viewModel;
+            packets = new PacketModel();
+            connectCtx = new ConnectViewModel(packets);
+        }
+        */
+
+
+
+        private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        /*
+
+        struct connstatus
+        {
+            public string msg;
+            public bool active;
+        }
+        static Client client = null;
+        private static BackgroundWorker bgWorker;
+        private static CancellationTokenSource source = null;
+
+
+        private void Connect_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (endpoint_addr.Text.Length == 0 || bgWorker.IsBusy)
+            {
+                return;
+            }
+
+            bgWorker.DoWork += ConnectToClient;
+
+            bgWorker.RunWorkerAsync(endpoint_addr.Text);
+
+        }
+
+
+        //bgWorker tasks
+        void ConnectToClient(object sender, DoWorkEventArgs args)
+        {
+
+            Dispatcher.BeginInvoke(new Action(() => {
+                endpoint_conn_status.Content = "";
+                endpoint_addr.IsEnabled = false;
+                Connect.IsEnabled = false;
+            }), DispatcherPriority.Background);
+
+            var addr = (string)args.Argument;
+            addr += ":6501";
+            client = new Client(addr);
+            connstatus result = new connstatus { };
+            try
+            {
+                var res = client.GetServerId();
+
+                result.msg = res;
+                result.active = true;
+            }
+            catch (Exception e)
+            {
+                result.msg = e.Message;
+                result.active = false;
+            }
+
+            args.Result = result;
+
+        }
+
+        void ReadDevicePackets(object sender, DoWorkEventArgs args)
+        {
+
+            if (client == null)
+                return;
+            var id = (int)args.Argument;
+
+            List<Packet> response = new List<Packet>();
+
+            try
+            {
+                response = client.GetListOfPackets(id);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            args.Result = response;
+
+        }
+
+        void ReadAllPackets(object sender, DoWorkEventArgs args)
 
         private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -135,6 +250,8 @@ namespace IoT1
         {
             MainFrame1.Content = new Location(packets);
         }
+
+
 
 
     }

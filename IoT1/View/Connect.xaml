@@ -44,7 +44,10 @@
             
             <Button x:Name="ConenctEndpoint" Content="Connect" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8" Width="80" Height="24" Grid.Column="1" Grid.Row="1" Command="{Binding ConnectTogRPC}"  Style="{StaticResource RoundedButton}" Background="DarkSlateGray" Foreground="White"/>
             <Grid Grid.Column="2" Grid.Row="1">
-                <Button x:Name="StartStopEndpoint" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 8 8 8" Width="auto" Height="auto" Command="{Binding StartStopComm}" Background="Transparent" BorderThickness="0">
+                
+                <!-- Code for button beforee enabling toggle -->
+                <!--
+                <Button x:Name="StartStopEndpoint" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 8 8 8" Width="auto" Height="auto" Command="{Binding StartStopComm}" Background="Transparent" BorderThickness="0"  >
                     <Grid>
                         <Path Fill="Green" Data="M3,0 L15,7.5 L3,15 Z" Stretch="Uniform" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Grid>
@@ -54,6 +57,38 @@
                         <Rectangle Fill="Red" Width="20" Height="20" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Grid>
                 </Button>
+                -->
+                <ToggleButton x:Name="StartStopEndpoint" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 8 8 8" Width="auto" Height="auto" Command="{Binding StartStopComm}" Background="Transparent" BorderThickness="0" Style="{StaticResource OpacityOnClickButton}">
+                    <Grid>
+                        <Path x:Name="Triangle" Fill="Green" Data="M3,0 L15,7.5 L3,15 Z" Stretch="Uniform" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ToggleButton}, Path=IsChecked}" Value="True">
+                                            <Setter Property="Fill" Value="Blue"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </Grid>
+                </ToggleButton>
+                <ToggleButton VerticalAlignment="Center" Margin="40 8 8 8" Width="auto" Height="auto" HorizontalAlignment="Left" Command="{Binding StopEndpoint}" Background="Transparent" BorderThickness="0" Style="{StaticResource OpacityOnClickButton}">
+                    <Grid>
+                        <Rectangle x:Name="Square" Fill="Red" Width="20" Height="20" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ToggleButton}, Path=IsChecked}" Value="True">
+                                            <Setter Property="Fill" Value="Blue"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                    </Grid>
+                </ToggleButton>
+
             </Grid>
         </Grid>
 
