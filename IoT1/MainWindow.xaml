@@ -171,9 +171,11 @@
 
             <!--Search Bar-->
             <Grid Grid.Row="0" Grid.Column="1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Add Notification" Click="AddNotification_Click" Width="100" Height="20" HorizontalAlignment="Left" Margin="10 10 10 10"/>
-                     
+                <StackPanel Orientation="Horizontal"  >
+                    <TextBlock x:Name="redhat_id" Margin="16 16 8 8" FontSize="16"  Width="auto"/>
+                    <Button Content="Add Notification" Click="AddNotification_Click" Width="100" Height="20" HorizontalAlignment="Left" Margin="400 0 0 0"/>
+                    
+
                 </StackPanel>
             </Grid>
             

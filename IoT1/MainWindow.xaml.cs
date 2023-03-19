@@ -20,6 +20,7 @@ using IOT.Monitoring;
 using System.Threading.Channels;
 using System.Threading;
 using IoT1.Model;
+using System.Net.PeerToPeer;
 
 namespace IoT1
 {
@@ -42,6 +43,9 @@ namespace IoT1
             DataContext = _viewModel;
             packets = new PacketModel();
             connectCtx = new ConnectViewModel(packets);
+            redhat_id.Text = "Redhat Agent #12345";
+
+            
 
             /*
             bgWorker = new BackgroundWorker
@@ -56,6 +60,28 @@ namespace IoT1
             */
 
         }
+
+        /*
+        // Overloaded constructor to accept the username and then display it at the top of the page
+        
+        public MainWindow() : this(string.Empty)
+        {
+        }
+
+        // Overloaded constructor to accept the username
+        public MainWindow(string username)
+        {
+            InitializeComponent();
+            redhat_id.Text = username;
+
+            _viewModel = new NotificationsViewModel();
+            DataContext = _viewModel;
+            packets = new PacketModel();
+            connectCtx = new ConnectViewModel(packets);
+        }
+        */
+
+
 
         private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
         {
@@ -351,6 +377,8 @@ namespace IoT1
         {
             MainFrame1.Content = new Location(packets);
         }
+
+
 
 
     }

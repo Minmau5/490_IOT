@@ -50,6 +50,13 @@ namespace IoT1
                 if (count == 1)
                 {
                     MainWindow dashboard = new MainWindow();
+
+                    /*
+                    //To make username display on mainwindow, need to overload constructor in mainwindow and uncomment
+                    //the line below
+                    */
+
+                    //MainWindow dashboard = new MainWindow(txtUsername.Text);
                     dashboard.Show();
                     MessageBox.Show("Login Successfull    ");
                     this.NavigationService.Navigate(null);
