@@ -13,12 +13,6 @@ namespace IoT1.Model
 
     class Connection : ICommand
     {
-        struct connstatus
-        {
-            public string msg;
-            public bool active;
-        }
-
 
         private readonly ConnectViewModel _connectViewModel;
 
@@ -62,9 +56,9 @@ namespace IoT1.Model
                 _connectViewModel.client = new Client(addr);
 
                 _ = _connectViewModel.client.GetServerId();
-
-
                 _connectViewModel.IpAddressEnabled = false;
+
+                _connectViewModel.NotifyPropertyChanged("start");
 
             }
             catch (Exception e)
@@ -79,12 +73,6 @@ namespace IoT1.Model
 
     class StopConnection : ICommand
     {
-        struct connstatus
-        {
-            public string msg;
-            public bool active;
-        }
-
 
         private readonly ConnectViewModel _connectViewModel;
 
@@ -120,6 +108,7 @@ namespace IoT1.Model
                 _connectViewModel.client.CloseConnection();
                 _connectViewModel.client = null;
                 _connectViewModel.IpAddressEnabled = true;
+                _connectViewModel.NotifyPropertyChanged("stop");
             }
             catch (Exception e)
             {

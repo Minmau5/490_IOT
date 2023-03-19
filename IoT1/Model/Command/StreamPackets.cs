@@ -46,9 +46,9 @@ namespace IoT1.Model
 
         public void CancelSource()
         {
+            if (source == null) return;
             source.Cancel();
             bgWorker.DoWork -= ReadAllPackets;
-
         }
 
         public bool IsExecuting { get; private set; }

@@ -30,7 +30,7 @@ namespace IoT1.Model
         {
             this._packets[id] = packet;
 
-            PropertyChanged?.Invoke(id, new PropertyChangedEventArgs(packet.Data.ToStringUtf8()));
+            PropertyChanged?.Invoke(packet, new PropertyChangedEventArgs(packet.Data.ToStringUtf8()));
         }
 
         #region INotifyPropertyChanged Members

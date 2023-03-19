@@ -47,6 +47,8 @@ namespace IoT1
 
             
 
+            connectCtx.PropertyChanged += 
+            ;
             /*
             bgWorker = new BackgroundWorker
             {
@@ -170,162 +172,33 @@ namespace IoT1
         }
 
         void ReadAllPackets(object sender, DoWorkEventArgs args)
+
+        private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
-            if (client == null)
-                return;
-            Channel<Packet> buffer = Channel.CreateUnbounded<Packet>();
-
-            source = new CancellationTokenSource();
-
-            _ = Task.Run(async () =>
+            if (e.PropertyName == "start" && connectCtx.client != null)
             {
-                try
+                _viewModel.AddNotification(new Notification
                 {
-                    await client.ReadPackets(source.Token, buffer.Writer);
-                }
-                catch (Exception e)
+                    Message = String.Format("New client has been connected to {0} ", connectCtx.IpAddress),
+                    Timestamp = DateTime.Now
+                });
+            }
+
+            else if (e.PropertyName == "stop" && connectCtx.client == null)
+            {
+                _viewModel.AddNotification(new Notification
                 {
-                    Console.WriteLine(e.Message);
-                }
-                finally
-                {
-                    source.Cancel(false);
-                    buffer.Writer.TryComplete();
-                }
-            });
-
-            args.Result = buffer.Reader;
-        }
-
-        static void ProgressChanged(object sender, ProgressChangedEventArgs args)
-        {
-
-        }
-
-        void WorkCompleted(object sender, RunWorkerCompletedEventArgs args)
-        {
-            if (args.Result == null)
-                return;
-
-            if (typeof(connstatus) == args.Result.GetType())
-            {
-                var res = (connstatus)args.Result;
-                Dispatcher.BeginInvoke(new Action(() => {
-
-                    if (res.active)
-                    {
-                        var bc = new BrushConverter();
-                        endpoint_conn_status.Content = "Connected -- Server v" + res.msg;
-                        endpoint_conn_status.Background = (Brush)bc.ConvertFrom("#00FF00");
-
-                    }
-                    else
-                    {
-                        endpoint_addr.IsEnabled = true;
-                        endpoint_conn_status.Content = res.msg;
-                        Connect.IsEnabled = true;
-                    }
-                }), DispatcherPriority.Background);
-                bgWorker.DoWork -= ConnectToClient;
+                    Message = String.Format("Connection has stopped"),
+                    Timestamp = DateTime.Now
+                });
             }
-            else if (typeof(List<Packet>) == args.Result.GetType())
-            {
-                var res = (List<Packet>)args.Result;
-
-                TextBox[] textBoxes = { heart_rate, co_2, temp, oxygen };
-
-                Dispatcher.BeginInvoke(new Action(() => {
-
-                    if (res.Count == 0)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        for (int i = 0; i < res.Count(); i++)
-                        {
-                            textBoxes[res[i].Id % textBoxes.Length].Text = res[i].Data.ToStringUtf8();
-                        }
-                    }
-                }), DispatcherPriority.Background);
-
-            }
-            else
-            // if(typeof(ChannelReader<Packet>) == args.Result.GetType())
-            {
-                var buf = (ChannelReader<Packet>)args.Result;
-
-                Dispatcher.BeginInvoke(new Action(async () => {
-                    TextBox[] textBoxes = { heart_rate, co_2, temp, oxygen };
-                    //Ellipse[] ellipses = { heart_rate_st, co_2_st, temp_st, oxygen_st };
-                    var bc = new BrushConverter();
-
-
-                    int i = 0;
-                    for (int j = 0; j < textBoxes.Length; j++)
-                    {
-                        textBoxes[j].IsEnabled = false;
-                        //ellipses[j].Fill = (Brush)bc.ConvertFrom("#00FF00");
-                    }
-                    while (await buf.WaitToReadAsync())
-                    {
-                        var data = await buf.ReadAsync();
-                        textBoxes[data.Id % textBoxes.Length].Text = data.Data.ToStringUtf8();
-                    }
-
-                    for (int j = 0; j < textBoxes.Length; j++)
-                    {
-                        textBoxes[j].IsEnabled = true;
-                        // ellipses[j].Fill = (Brush)bc.ConvertFrom("#FF0000");
-                    }
-                    StartBtn.IsEnabled = true;
-                    StopBtn.IsEnabled = false;
-
-                }), DispatcherPriority.Normal);
-
-            }
-
-
-
-
-
         }
 
-        private void endpoint_addr_MouseEnter(object sender, MouseEventArgs e)
+
+        private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
         {
-            endpoint_addr.Text = "";
+            
         }
-
-        private void StartBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (endpoint_addr.IsEnabled || bgWorker.IsBusy)
-            {
-                return;
-            }
-            Dispatcher.BeginInvoke(new Action(() => {
-                StartBtn.IsEnabled = false;
-                StopBtn.IsEnabled = true;
-            }), DispatcherPriority.Background);
-
-            bgWorker.DoWork += ReadAllPackets;
-
-            bgWorker.RunWorkerAsync(1);
-        }
-
-        private void StopBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (source == null)
-                return;
-            source.Cancel();
-            bgWorker.DoWork -= ReadAllPackets;
-        }
-
-        private void endpoint_addr_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-        */
 
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {

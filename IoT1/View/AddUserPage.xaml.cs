@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,23 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IoT1
+namespace IoT1.View
 {
     /// <summary>
-    /// Interaction logic for UserInputWindow.xaml
+    /// Interaction logic for AddUserPage.xaml
     /// </summary>
-    public partial class UserInputWindow : Window
+    public partial class AddUserPage : Page
     {
-
-        public UserInputWindow(ObservableCollection<User> users, UserPage userPage)
+        public AddUserPage()
         {
             InitializeComponent();
-           
         }
-
-       
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -75,12 +71,5 @@ namespace IoT1
         {
             ActiveInMissionCheckBox.Background = Brushes.Red;
         }
-
-
-
-
-
     }
-
-
 }
