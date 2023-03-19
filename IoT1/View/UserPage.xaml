@@ -8,22 +8,56 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserPage">
 
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="AddUserButtonStyle">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="5"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Content="{TemplateBinding Content}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" x:Name="btnAddUser" Content="Add User" Click="btnAddUser_Click"/>
-
-        <ListView Grid.Row="1" ItemsSource="{Binding Users}"  Background="Transparent">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Agent ID" DisplayMemberBinding="{Binding AgentID}" Width="100"/>
-                    <GridViewColumn Header="Full Name" DisplayMemberBinding="{Binding FullName}" Width="200"/>
-                    <GridViewColumn Header="Station #" DisplayMemberBinding="{Binding StationNumber}" Width="100"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid x:Name="UserGrid" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" Margin="26,10,10,74" SelectionChanged="UserGrid_SelectionChanged" 
+          BorderBrush="#B9B9B9" BorderThickness="1" AlternatingRowBackground="#F6F6F6" RowBackground="#FFFFFF" RowHeight="35" 
+          HorizontalGridLinesBrush="#E6E6E6" VerticalGridLinesBrush="#E6E6E6" CanUserSortColumns="True" CanUserResizeColumns="True" CanUserResizeRows="False" 
+          IsReadOnly="True" FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
+                <DataGridTextColumn Header="Agent ID" Binding="{Binding AgentId}" Width="*" />
+                <DataGridTextColumn Header="Station Number" Binding="{Binding StationNumber}" Width="*" />
+                <DataGridCheckBoxColumn Header="Active in Mission" Binding="{Binding IsActiveInMission}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Content="Add User" Click="Button_Click" Style="{StaticResource AddUserButtonStyle}" />
+        </StackPanel>
     </Grid>
 
 </Page>

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using IoT1.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,27 +23,61 @@ namespace IoT1
     /// </summary>
     public partial class UserPage : Page
     {
-        private ObservableCollection<User> _users = new ObservableCollection<User>();
+        
 
         public UserPage()
         {
             InitializeComponent();
-            DataContext = this;
-            Users = new ObservableCollection<User>();
+            List<User> users = GetUsersFromDatabase();
+            UserGrid.ItemsSource = users;
         }
-
-        public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
-
-        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        private List<User> GetUsersFromDatabase()
         {
-            var userInputWindow = new UserInputWindow(Users, this);
-            userInputWindow.Show();
+            List<User> users = new List<User>();
+            string connectionString = @"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;";
+            string sql = "SELECT * FROM Userspage";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(sql, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    User user = new User();
+                    user.FirstName = reader["FirstName"].ToString();
+                    user.LastName = reader["LastName"].ToString();
+                    user.AgentId = (int)reader["AgentId"];
+                    user.StationNumber = (int)reader["StationNumber"];
+                    user.IsActiveInMission = (bool)reader["IsActive"];
+                    users.Add(user);
+                }
+            }
+
+            return users;
         }
 
-        public void AddUser(User user)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Users.Add(user);
+             AddUserPage addUserPage= new AddUserPage();
+            this.NavigationService.Navigate(addUserPage);
         }
+
+        private void UserGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (UserGrid.SelectedItem != null)
+            {
+
+                User selectedUser = (User)UserGrid.SelectedItem;
+
+
+
+
+
+            }
+        }
+
     }
 
 }
