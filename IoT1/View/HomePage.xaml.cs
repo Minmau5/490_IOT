@@ -36,21 +36,31 @@ namespace IoT1
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => {
 
-                    var pack = y.PropertyName.Split(',');
+                var pack = y.PropertyName.Split(',');
 
-                    switch (((Packet)x).Id)
+                var packet = x as Packet;
+
+                    switch (packet.Id)
                     {
                         case 0:
                             temp.Text = String.Format("{0:0.## C}", float.Parse(pack[0]));
+                            if (packet.Type == TYPE.Err)
+                                temp.Background = Brushes.Red;
                             break;
                         case 1:
                             co_2.Text = String.Format("{0:0.## ppm}", float.Parse(pack[0]));
+                            if (packet.Type == TYPE.Err)
+                                co_2.Background = Brushes.Red;
                             break;
                         case 2:
                             heart_rate.Text = String.Format("{0:0.## BPM}", float.Parse(pack[0]));
+                            if (packet.Type == TYPE.Err)
+                                heart_rate.Background = Brushes.Red;
                             break;
                         case 3:
                             oxygen.Text = String.Format("{0:0.## mm}", float.Parse(pack[0]));
+                            if (packet.Type == TYPE.Err)
+                                oxygen.Background = Brushes.Red;
                             break;
                     }
                 }));
@@ -61,10 +71,6 @@ namespace IoT1
 
 
             //heart_rate.Text = packet.GetPackets(0).Data.ToStringUtf8();
-            heart_rate.Text = "69 BPM";
-            co_2.Text = "40 ppm";
-            temp.Text = "28 C";
-            oxygen.Text = "85 mm";
 
             // Subscribe to the TextChanged event of the heart rate TextBox
             heart_rate.TextChanged += HeartRate_TextChanged;

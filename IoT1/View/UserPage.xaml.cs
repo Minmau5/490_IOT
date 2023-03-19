@@ -34,26 +34,33 @@ namespace IoT1
         private List<User> GetUsersFromDatabase()
         {
             List<User> users = new List<User>();
-            string connectionString = @"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;";
-            string sql = "SELECT * FROM Userspage";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand command = new SqlCommand(sql, connection);
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+                string connectionString = @"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;";
+                string sql = "SELECT * FROM Userspage";
 
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection("Server=localhost;Database=master;Trusted_Connection=True;"))
                 {
-                    User user = new User();
-                    user.FirstName = reader["FirstName"].ToString();
-                    user.LastName = reader["LastName"].ToString();
-                    user.AgentId = (int)reader["AgentId"];
-                    user.StationNumber = (int)reader["StationNumber"];
-                    user.IsActiveInMission = (bool)reader["IsActive"];
-                    users.Add(user);
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        User user = new User();
+                        user.FirstName = reader["FirstName"].ToString();
+                        user.LastName = reader["LastName"].ToString();
+                        user.AgentId = (int)reader["AgentId"];
+                        user.StationNumber = (int)reader["StationNumber"];
+                        user.IsActiveInMission = (bool)reader["IsActive"];
+                        users.Add(user);
+                    }
                 }
+            }catch(Exception e)
+            {
+                _ = MessageBox.Show(e.Message.ToString(), "Error connecting to database", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
 
             return users;
         }
@@ -68,12 +75,7 @@ namespace IoT1
         {
             if (UserGrid.SelectedItem != null)
             {
-
-                User selectedUser = (User)UserGrid.SelectedItem;
-
-
-
-
+                    User selectedUser = (User)UserGrid.SelectedItem;
 
             }
         }
