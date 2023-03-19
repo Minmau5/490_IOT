@@ -41,15 +41,15 @@ namespace IoT1
                     switch (((Packet)x).Id)
                     {
                         case 0:
-                            heart_rate.Text = String.Format("{0:0.## BPM}", float.Parse(pack[0]));
+                            temp.Text = String.Format("{0:0.## C}", float.Parse(pack[0]));
                             break;
                         case 1:
                             co_2.Text = String.Format("{0:0.## ppm}", float.Parse(pack[0]));
                             break;
                         case 2:
-                            temp.Text = String.Format("{0:0.## C}", float.Parse(pack[0]));
+                            heart_rate.Text = String.Format("{0:0.## BPM}", float.Parse(pack[0]));
                             break;
-                        case 4:
+                        case 3:
                             oxygen.Text = String.Format("{0:0.## mm}", float.Parse(pack[0]));
                             break;
                     }
@@ -84,7 +84,7 @@ namespace IoT1
                     if (coords.Length != 2)
                         return;
 
-                    if (double.TryParse(coords[0], out double latitude) && double.TryParse(coords[1], out double longitude))
+                    if (double.TryParse(coords[0], out double longitude) && double.TryParse(coords[1], out double latitude))
                     {
                         Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
                         TestLocation.Center = location;
