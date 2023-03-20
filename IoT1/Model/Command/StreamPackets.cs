@@ -65,6 +65,8 @@ namespace IoT1.Model
             try
             {
                 IsExecuting = true;
+                connectViewModel.NotifyPropertyChanged("start");
+
                 await ExecuteAsync(parameter);
             }
             finally

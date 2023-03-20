@@ -21,9 +21,12 @@ namespace IoT1.View
     /// </summary>
     public partial class AddUserPage : Page
     {
-        public AddUserPage()
+        private readonly SqlConnection connection;
+
+        public AddUserPage(SqlConnection connection)
         {
             InitializeComponent();
+            this.connection = connection;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -43,7 +46,7 @@ namespace IoT1.View
                 IsActiveInMission = isActiveInMission
             };
 
-            using (SqlConnection connection = new SqlConnection(@"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;"))
+           
             {
                 SqlCommand command = new SqlCommand("INSERT INTO Userspage (FirstName, LastName, AgentId, StationNumber, IsActive) " +
                                                      "VALUES (@FirstName, @LastName, @AgentId, @StationNumber, @IsActiveInMission)", connection);
@@ -52,12 +55,13 @@ namespace IoT1.View
                 command.Parameters.AddWithValue("@AgentId", newUser.AgentId);
                 command.Parameters.AddWithValue("@StationNumber", newUser.StationNumber);
                 command.Parameters.AddWithValue("@IsActiveInMission", newUser.IsActiveInMission);
-
-                connection.Open();
+                if(connection.State == System.Data.ConnectionState.Closed)
+                    connection.Open();
                 int result = command.ExecuteNonQuery();
                 if (result == 1)
                 {
                     MessageBox.Show("User added successfully!");
+                    this.NavigationService.GoBack();
                 }
             }
 

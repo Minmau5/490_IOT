@@ -33,7 +33,7 @@ namespace IoT1
             // @"Data Source=(MachineName)\InstanceName);Initial Catalog = (DBName); Integrated Security = True;"
             // For SQL Server auth -
             // @"Data Source=(MachineName)\InstanceName);Initial Catalog = (DBName); UserID = Username; Password = (Password);"
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;");
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=DEOLIVEK2; Database = LoginDB;Integrated Security = True;");
 
             try
             {
@@ -49,22 +49,22 @@ namespace IoT1
 
                 if (count == 1)
                 {
-                    MainWindow dashboard = new MainWindow();
+                    //MainWindow dashboard = new MainWindow();
 
                     /*
                     //To make username display on mainwindow, need to overload constructor in mainwindow and uncomment
                     //the line below
                     */
+                    MessageBox.Show("Login Successfull", "Login/Registration", MessageBoxButton.OK);
 
-                    //MainWindow dashboard = new MainWindow(txtUsername.Text);
-                    dashboard.Show();
-                    MessageBox.Show("Login Successfull    ");
-                    this.NavigationService.Navigate(null);
+                    MainWindow window = new MainWindow(sqlCon);
+                    Application.Current.MainWindow.Close();
+                    window.ShowDialog();
                 }
 
                 else
                 {
-                    MessageBox.Show("Invalid Username/Password");
+                    MessageBox.Show("Invalid Username/Password", "Login/Registration", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
@@ -85,5 +85,6 @@ namespace IoT1
             this.NavigationService.Navigate(registerPage);
 
         }
+        
     }
 }

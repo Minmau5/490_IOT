@@ -8,29 +8,12 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
-        Title="Splash" Height="250" Width="350" ContentRendered="Window_ContentRendered">
+        Title="Splash" Height="350" Width="350" >
 
-    <Border CornerRadius="20" Background="#c6dddd" BorderThickness="0">
-            <StackPanel VerticalAlignment="Center" Margin="20">
-                <Grid Height="230">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*" />
-                        <RowDefinition Height="0.5*" />
-                    </Grid.RowDefinitions>
+    <Border CornerRadius="20" Background="#c6dddd" BorderThickness="0" Margin="0" Padding="0">
+        <Frame x:Name="MainFrame" Source="View/Loader.xaml" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" Height="330" Margin="0" Grid.RowSpan="2" VerticalAlignment="Center" Width="330"/>
 
-
-                    <WrapPanel HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center">
-                        <Image HorizontalAlignment="Center" Height="50" Width="auto" Source="Images/firefighter1.png"/>
-                        <TextBlock Text="IoT Monitoring" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    </WrapPanel>
-
-                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Orientation="Vertical">
-                    <TextBlock Text="Loading..." FontSize="18" HorizontalAlignment="Center" Margin="0 10 0 10"/>
-                    <TextBlock Name="percentage" FontSize="12" HorizontalAlignment="Center" Margin="0 0 0 10"/>
-                    <ProgressBar Name="loader" Value="0" Height="5" Width="250" IsIndeterminate="True"/>
-                </WrapPanel>
-            </Grid>
-            </StackPanel>
+            
         </Border>
     
 </Window>

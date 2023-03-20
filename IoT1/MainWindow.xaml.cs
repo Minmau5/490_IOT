@@ -1,26 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GrpcClient;
 using System.ComponentModel;
-using System.Windows.Threading;
-using IOT.Monitoring;
-using System.Threading.Channels;
-using System.Threading;
 using IoT1.Model;
-using System.Net.PeerToPeer;
+using System.Data.SqlClient;
 
 namespace IoT1
 {
@@ -32,35 +14,18 @@ namespace IoT1
         private NotificationsViewModel _viewModel;
         private ConnectViewModel connectCtx;
         private PacketModel packets;
+        private readonly SqlConnection connection;
 
-        public MainWindow()
+        public MainWindow(SqlConnection connection)
         {
-
-
-
             InitializeComponent();
             _viewModel = new NotificationsViewModel();
             DataContext = _viewModel;
             packets = new PacketModel();
             connectCtx = new ConnectViewModel(packets);
             redhat_id.Text = "Redhat Agent #12345";
-
-            
-
-            connectCtx.PropertyChanged += 
-            ;
-            /*
-            bgWorker = new BackgroundWorker
-            {
-                WorkerReportsProgress = true,
-                WorkerSupportsCancellation = true,
-            };
-
-
-            bgWorker.ProgressChanged += ProgressChanged;
-            bgWorker.RunWorkerCompleted += WorkCompleted;
-            */
-
+            connectCtx.PropertyChanged += ConnectCtx_PropertyChanged;
+            this.connection = connection;
         }
 
         /*
@@ -83,103 +48,13 @@ namespace IoT1
         }
         */
 
-
-
-        private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        /*
-
-        struct connstatus
-        {
-            public string msg;
-            public bool active;
-        }
-        static Client client = null;
-        private static BackgroundWorker bgWorker;
-        private static CancellationTokenSource source = null;
-
-
-        private void Connect_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (endpoint_addr.Text.Length == 0 || bgWorker.IsBusy)
-            {
-                return;
-            }
-
-            bgWorker.DoWork += ConnectToClient;
-
-            bgWorker.RunWorkerAsync(endpoint_addr.Text);
-
-        }
-
-
-        //bgWorker tasks
-        void ConnectToClient(object sender, DoWorkEventArgs args)
-        {
-
-            Dispatcher.BeginInvoke(new Action(() => {
-                endpoint_conn_status.Content = "";
-                endpoint_addr.IsEnabled = false;
-                Connect.IsEnabled = false;
-            }), DispatcherPriority.Background);
-
-            var addr = (string)args.Argument;
-            addr += ":6501";
-            client = new Client(addr);
-            connstatus result = new connstatus { };
-            try
-            {
-                var res = client.GetServerId();
-
-                result.msg = res;
-                result.active = true;
-            }
-            catch (Exception e)
-            {
-                result.msg = e.Message;
-                result.active = false;
-            }
-
-            args.Result = result;
-
-        }
-
-        void ReadDevicePackets(object sender, DoWorkEventArgs args)
-        {
-
-            if (client == null)
-                return;
-            var id = (int)args.Argument;
-
-            List<Packet> response = new List<Packet>();
-
-            try
-            {
-                response = client.GetListOfPackets(id);
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            args.Result = response;
-
-        }
-
-        void ReadAllPackets(object sender, DoWorkEventArgs args)
-
         private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "start" && connectCtx.client != null)
+            if (e.PropertyName == "conn" && connectCtx.client != null)
             {
                 _viewModel.AddNotification(new Notification
                 {
-                    Message = String.Format("New client has been connected to {0} ", connectCtx.IpAddress),
+                    Message = String.Format("Connection established with endpoint {0} ", connectCtx.IpAddress),
                     Timestamp = DateTime.Now
                 });
             }
@@ -192,12 +67,20 @@ namespace IoT1
                     Timestamp = DateTime.Now
                 });
             }
-        }
 
+            else if (e.PropertyName == "start" && connectCtx.client != null)
+            {
+                _viewModel.AddNotification(new Notification
+                {
+                    Message = String.Format("Endpoint streaming started"),
+                    Timestamp = DateTime.Now
+                });
+            }
+        }
 
         private void Button_Click_Dashboard(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void Minimize_Click(object sender, RoutedEventArgs e)
@@ -221,10 +104,7 @@ namespace IoT1
         {
             this.Close();
         }
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame1.Content = new LoginPage();
-        }
+
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame1.Content = new HomePage(connectCtx);
@@ -232,7 +112,7 @@ namespace IoT1
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame1.Content = new UserPage();
+            MainFrame1.Content = new UserPage(connection);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -251,8 +131,9 @@ namespace IoT1
             MainFrame1.Content = new Location(packets);
         }
 
-
-
-
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

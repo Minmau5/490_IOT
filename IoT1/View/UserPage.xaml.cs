@@ -23,24 +23,47 @@ namespace IoT1
     /// </summary>
     public partial class UserPage : Page
     {
-        
 
-        public UserPage()
+        private SqlConnection connection;
+        public UserPage(SqlConnection connection)
         {
             InitializeComponent();
-            List<User> users = GetUsersFromDatabase();
-            UserGrid.ItemsSource = users;
+
+            this.connection = connection;
+
+            //UserGrid.ItemsSource = GetUsersFromDatabase();
+
+
+            connection.StateChange += Connection_StateChange;
+
+            this.Loaded += UserPage_Loaded;
+            
+
+        }
+
+        private void UserPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            UserGrid.ItemsSource = GetUsersFromDatabase();
+        }
+
+        private void Connection_StateChange(object sender, System.Data.StateChangeEventArgs e)
+        {
+        }
+
+        ~UserPage()
+        {
+            //connection.Dispose();
         }
         private List<User> GetUsersFromDatabase()
         {
             List<User> users = new List<User>();
-            string connectionString = @"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;";
             string sql = "SELECT * FROM Userspage";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            SqlCommand command = new SqlCommand(sql, connection);
+            try
             {
-                SqlCommand command = new SqlCommand(sql, connection);
-                connection.Open();
+                if(connection.State == System.Data.ConnectionState.Closed)
+                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -53,14 +76,25 @@ namespace IoT1
                     user.IsActiveInMission = (bool)reader["IsActive"];
                     users.Add(user);
                 }
+
+                reader.Close();
+                
+            }catch(Exception e)
+            {
+                _ = MessageBox.Show(e.Message.ToString(), "Error connecting to database", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                command.Dispose();
+            }
+
 
             return users;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-             AddUserPage addUserPage= new AddUserPage();
+             AddUserPage addUserPage= new AddUserPage(connection);
             this.NavigationService.Navigate(addUserPage);
         }
 
@@ -68,12 +102,7 @@ namespace IoT1
         {
             if (UserGrid.SelectedItem != null)
             {
-
-                User selectedUser = (User)UserGrid.SelectedItem;
-
-
-
-
+                    User selectedUser = (User)UserGrid.SelectedItem;
 
             }
         }

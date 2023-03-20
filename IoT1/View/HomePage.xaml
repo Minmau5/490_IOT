@@ -33,7 +33,7 @@
             <!--
             <TextBox IsEnabled="False" x:Name="heart_rate" Width="auto" Height="60" Margin="0 10 0 0" Background="Transparent" FontSize="24" FontWeight="Bold" TextAlignment="Center" BorderThickness="0"/>
             -->
-            <TextBox x:Name="heart_rate" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" TextChanged="HeartRate_TextChanged"/>
+            <TextBox x:Name="heart_rate" Text="{Binding Path=HEART, Mode=OneWay}" IsEnabled="False" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" TextChanged="HeartRate_TextChanged"/>
            
             <!-- 
                     <StackPanel>
@@ -49,12 +49,12 @@
         </Border>
 
         <Border Grid.Row="2" BorderThickness="0.5" Margin ="4" BorderBrush="DarkGray">
-            <TextBlock Grid.Row="0" Text="CO Level" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
+            <TextBlock Grid.Row="0"  IsEnabled="False" Text="CO Level" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
 
         </Border>
         <Border Grid.Row="3" BorderThickness="1" Margin="10" BorderBrush="DarkGray" CornerRadius="2,2,2,2">
 
-            <TextBox x:Name="co_2" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" TextChanged="CO_TextChanged"/>
+            <TextBox x:Name="co_2" IsEnabled="False" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" TextChanged="CO_TextChanged"/>
 
                 <!-- 
             <StackPanel>
@@ -71,11 +71,11 @@
 
         <!--Oxygen-->
         <Border Grid.Row="0" Grid.Column="1" BorderThickness="0.5" Margin ="4" BorderBrush="DarkGray">
-            <TextBlock Grid.Row="0" Text="Blood Oxygen Level" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
+            <TextBlock Grid.Row="0" IsEnabled="False" Text="Blood Oxygen Level" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
 
         </Border>
         <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" Margin="10" BorderBrush="DarkGray" CornerRadius="2,2,2,2">
-            <TextBox x:Name="oxygen" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" TextChanged="Oxygen_TextChanged"/>
+            <TextBox x:Name="oxygen" IsEnabled="False" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" VerticalContentAlignment="Center" TextChanged="Oxygen_TextChanged"/>
 
             <!-- 
                     <StackPanel>
@@ -92,12 +92,12 @@
         <!--Temperature-->
         
         <Border Grid.Row="2" Grid.Column="1" BorderThickness="0.5" Margin ="4" BorderBrush="DarkGray">
-            <TextBlock Grid.Row="0" Text="Environmental Temperature" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
+            <TextBlock Grid.Row="0" IsEnabled="false" Text="Environmental Temperature" HorizontalAlignment="Stretch" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="#dfecec"/>
         </Border>
         
         
         <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" Margin="10" BorderBrush="DarkGray" CornerRadius="2,2,2,2">
-            <TextBox x:Name="temp" BorderThickness="0" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" VerticalContentAlignment="Center" TextChanged="Temp_TextChanged"/>
+            <TextBox x:Name="temp"  IsEnabled="False" BorderThickness="0" Width="auto" Background="Transparent" FontSize="32" FontWeight="Bold" TextAlignment="Center" VerticalContentAlignment="Center" TextChanged="Temp_TextChanged"/>
 
                 <!-- 
             <StackPanel>
