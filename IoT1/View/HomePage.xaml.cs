@@ -31,7 +31,6 @@ namespace IoT1
 
             DataContext = ctx;
 
-            
             ctx.packetModel.PropertyChanged += new PropertyChangedEventHandler((x, y) =>
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => {
@@ -69,14 +68,6 @@ namespace IoT1
 
             ctx.packetModel.PropertyChanged += Packets_PropertyChanged;
 
-
-            //heart_rate.Text = packet.GetPackets(0).Data.ToStringUtf8();
-
-            // Subscribe to the TextChanged event of the heart rate TextBox
-            heart_rate.TextChanged += HeartRate_TextChanged;
-            co_2.TextChanged += CO_TextChanged;
-            oxygen.TextChanged += Oxygen_TextChanged;
-            temp.TextChanged += Temp_TextChanged;
         }
 
         private void Packets_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

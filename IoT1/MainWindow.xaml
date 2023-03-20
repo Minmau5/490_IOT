@@ -82,7 +82,7 @@
             </Button>
 
             <!--Menu-->
-            <Rectangle Grid.Column="0" Grid.RowSpan="3" Fill="DarkSlateGray" RadiusX="15" RadiusY="15"/>
+            <Rectangle Grid.Column="0" Grid.RowSpan="3" Fill="DarkSlateGray" RadiusX="15" RadiusY="15" MouseLeftButtonDown="Grid_MouseLeftButtonDown"/>
             <TextBlock Grid.Column="0" Grid.Row="0"
                    TextWrapping="Wrap"
                    VerticalAlignment="Center"
@@ -117,7 +117,7 @@
 
                 <!--Stations Button-->
                 <Button Style="{StaticResource MenuButton}"
-                    Margin="0 2 0 0"
+                    Margin="0 2 0 0" Visibility="Hidden"
                     Click="Button_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="140">
                         <Image Source="\Images\stations.png" Height="27" Width="27" Margin="0 2 2 0" HorizontalAlignment="Left"/>
@@ -133,18 +133,8 @@
                     Margin="0 2 0 0"
                     Click="SettingsButton_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="140">
-                        <Image Source="\Images\settings.png" Height="27" Width="27" Margin="2 2 2 0" HorizontalAlignment="Left"/>
+                        <Image Source="Images\settings.png" Height="27" Width="27" Margin="2 2 2 0" HorizontalAlignment="Left"/>
                         <TextBlock Text="Settings" FontSize="22" Margin="5 5 0 2"/>
-                    </StackPanel>
-                </Button>
-
-                <!--Login Button-->
-                <Button Style="{StaticResource MenuButton}"
-                    Margin="0 2 0 0"
-                    Click="LoginButton_Click">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="140">
-                        <Image Source="\Images\account.png" Height="27" Width="27" Margin="0 2 2 0" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Login" FontSize="22" Margin="5 5 0 2"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -173,7 +163,6 @@
             <Grid Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal"  >
                     <TextBlock x:Name="redhat_id" Margin="16 16 8 8" FontSize="16"  Width="auto"/>
-                    <Button Content="Add Notification" Click="AddNotification_Click" Width="100" Height="20" HorizontalAlignment="Left" Margin="400 0 0 0"/>
                     
 
                 </StackPanel>

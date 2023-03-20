@@ -44,11 +44,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DataGrid x:Name="UserGrid" Grid.Row="1" ItemsSource="{Binding Users}" AutoGenerateColumns="False" Margin="26,10,10,74" SelectionChanged="UserGrid_SelectionChanged" 
-          BorderBrush="#B9B9B9" BorderThickness="1" AlternatingRowBackground="#F6F6F6" RowBackground="#FFFFFF" RowHeight="35" 
+          BorderBrush="#B9B9B9" BorderThickness="1" AlternatingRowBackground="#F6F6F6" RowBackground="#FFFFFF" 
           HorizontalGridLinesBrush="#E6E6E6" VerticalGridLinesBrush="#E6E6E6" CanUserSortColumns="True" CanUserResizeColumns="True" CanUserResizeRows="False" 
           IsReadOnly="True" FontSize="14">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*" />
                 <DataGridTextColumn Header="Agent ID" Binding="{Binding AgentId}" Width="*" />
                 <DataGridTextColumn Header="Station Number" Binding="{Binding StationNumber}" Width="*" />

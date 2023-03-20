@@ -24,7 +24,19 @@ namespace IoT1.Model
             _StartStopComm = new StreamPackets(this, packetModel);
             _StopEndpoint = new StopConnection(this);
             this.packetModel = packetModel;
+            this.packetModel.PropertyChanged += PacketModel_PropertyChanged;
         }
+
+        private void PacketModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //TODO
+            //NotifyPropertyChanged("HEART");
+        }
+
+        public string HEART => packetModel.HEART;
+        public string CO2 => packetModel.CO2;
+        public string OXYGEN => packetModel.OXYGEN;
+        public string TEMP => packetModel.TEMP;
 
         ~ConnectViewModel()
         {
@@ -32,6 +44,11 @@ namespace IoT1.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Calls any attached event handler and the respective UI component to update
+        /// Note that the porpertyName is used to define what is the component name the change was made
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void NotifyPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

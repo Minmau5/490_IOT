@@ -23,42 +23,69 @@ namespace IoT1
     /// </summary>
     public partial class UserPage : Page
     {
-        
 
-        public UserPage()
+        private SqlConnection connection;
+        public UserPage(SqlConnection connection)
         {
             InitializeComponent();
-            List<User> users = GetUsersFromDatabase();
-            UserGrid.ItemsSource = users;
+
+            this.connection = connection;
+
+            //UserGrid.ItemsSource = GetUsersFromDatabase();
+
+
+            connection.StateChange += Connection_StateChange;
+
+            this.Loaded += UserPage_Loaded;
+            
+
+        }
+
+        private void UserPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            UserGrid.ItemsSource = GetUsersFromDatabase();
+        }
+
+        private void Connection_StateChange(object sender, System.Data.StateChangeEventArgs e)
+        {
+        }
+
+        ~UserPage()
+        {
+            //connection.Dispose();
         }
         private List<User> GetUsersFromDatabase()
         {
             List<User> users = new List<User>();
+            string sql = "SELECT * FROM Userspage";
+
+            SqlCommand command = new SqlCommand(sql, connection);
             try
             {
-                string connectionString = @"Data Source=(localdb)\Local; Database = LoginDB;Integrated Security = True;";
-                string sql = "SELECT * FROM Userspage";
+                if(connection.State == System.Data.ConnectionState.Closed)
+                 connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
 
-                using (SqlConnection connection = new SqlConnection("Server=localhost;Database=master;Trusted_Connection=True;"))
+                while (reader.Read())
                 {
-                    SqlCommand command = new SqlCommand(sql, connection);
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        User user = new User();
-                        user.FirstName = reader["FirstName"].ToString();
-                        user.LastName = reader["LastName"].ToString();
-                        user.AgentId = (int)reader["AgentId"];
-                        user.StationNumber = (int)reader["StationNumber"];
-                        user.IsActiveInMission = (bool)reader["IsActive"];
-                        users.Add(user);
-                    }
+                    User user = new User();
+                    user.FirstName = reader["FirstName"].ToString();
+                    user.LastName = reader["LastName"].ToString();
+                    user.AgentId = (int)reader["AgentId"];
+                    user.StationNumber = (int)reader["StationNumber"];
+                    user.IsActiveInMission = (bool)reader["IsActive"];
+                    users.Add(user);
                 }
+
+                reader.Close();
+                
             }catch(Exception e)
             {
                 _ = MessageBox.Show(e.Message.ToString(), "Error connecting to database", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                command.Dispose();
             }
 
 
@@ -67,7 +94,7 @@ namespace IoT1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-             AddUserPage addUserPage= new AddUserPage();
+             AddUserPage addUserPage= new AddUserPage(connection);
             this.NavigationService.Navigate(addUserPage);
         }
 

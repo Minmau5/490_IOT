@@ -13,6 +13,50 @@ namespace IoT1.Model
     public class PacketModel : INotifyPropertyChanged
     {
         public ObservableDictionary<int, Packet> _packets = new ObservableDictionary<int, Packet>();
+        
+        public string HEART
+        {
+            get
+            {
+                if (this._packets.Contains(2))
+                    return this._packets[2].Data.ToStringUtf8() + " BPM";
+                else
+                    return "";
+            }
+        }
+
+        public string CO2
+        {
+            get
+            {
+                if (this._packets.Contains(1))
+                    return this._packets[1].Data.ToStringUtf8() + " ppm";
+                else
+                    return "";
+            }
+        }
+
+        public string OXYGEN
+        {
+            get
+            {
+                if (this._packets.Contains(3))
+                    return this._packets[3].Data.ToStringUtf8() + " mm";
+                else
+                    return "";
+            }
+        }
+
+                public string TEMP
+        {
+            get
+            {
+                if (this._packets.Contains(0))
+                    return this._packets[0].Data.ToStringUtf8() + " C";
+                else
+                    return "";
+            }
+        }
 
 
         public PacketModel()

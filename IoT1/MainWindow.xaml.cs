@@ -1,26 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GrpcClient;
 using System.ComponentModel;
-using System.Windows.Threading;
-using IOT.Monitoring;
-using System.Threading.Channels;
-using System.Threading;
 using IoT1.Model;
-using System.Net.PeerToPeer;
+using System.Data.SqlClient;
 
 namespace IoT1
 {
@@ -32,8 +14,9 @@ namespace IoT1
         private NotificationsViewModel _viewModel;
         private ConnectViewModel connectCtx;
         private PacketModel packets;
+        private readonly SqlConnection connection;
 
-        public MainWindow()
+        public MainWindow(SqlConnection connection)
         {
             InitializeComponent();
             _viewModel = new NotificationsViewModel();
@@ -42,7 +25,7 @@ namespace IoT1
             connectCtx = new ConnectViewModel(packets);
             redhat_id.Text = "Redhat Agent #12345";
             connectCtx.PropertyChanged += ConnectCtx_PropertyChanged;
-           
+            this.connection = connection;
         }
 
         /*
@@ -67,11 +50,11 @@ namespace IoT1
 
         private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "start" && connectCtx.client != null)
+            if (e.PropertyName == "conn" && connectCtx.client != null)
             {
                 _viewModel.AddNotification(new Notification
                 {
-                    Message = String.Format("New client has been connected to {0} ", connectCtx.IpAddress),
+                    Message = String.Format("Connection established with endpoint {0} ", connectCtx.IpAddress),
                     Timestamp = DateTime.Now
                 });
             }
@@ -81,6 +64,15 @@ namespace IoT1
                 _viewModel.AddNotification(new Notification
                 {
                     Message = String.Format("Connection has stopped"),
+                    Timestamp = DateTime.Now
+                });
+            }
+
+            else if (e.PropertyName == "start" && connectCtx.client != null)
+            {
+                _viewModel.AddNotification(new Notification
+                {
+                    Message = String.Format("Endpoint streaming started"),
                     Timestamp = DateTime.Now
                 });
             }
@@ -112,10 +104,7 @@ namespace IoT1
         {
             this.Close();
         }
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame1.Content = new LoginPage();
-        }
+
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame1.Content = new HomePage(connectCtx);
@@ -123,7 +112,7 @@ namespace IoT1
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame1.Content = new UserPage();
+            MainFrame1.Content = new UserPage(connection);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -142,7 +131,9 @@ namespace IoT1
             MainFrame1.Content = new Location(packets);
         }
 
-
-
+        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

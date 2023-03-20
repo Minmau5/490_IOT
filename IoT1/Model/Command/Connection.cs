@@ -58,7 +58,7 @@ namespace IoT1.Model
                 _ = _connectViewModel.client.GetServerId();
                 _connectViewModel.IpAddressEnabled = false;
 
-                _connectViewModel.NotifyPropertyChanged("start");
+                _connectViewModel.NotifyPropertyChanged("conn");
 
             }
             catch (Exception e)
