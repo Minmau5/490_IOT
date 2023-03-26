@@ -28,7 +28,6 @@ namespace IoT1.Model
 
         ~Connection()
         {
-            Console.WriteLine("Destructor");
 
         }
 
@@ -56,8 +55,7 @@ namespace IoT1.Model
                 _connectViewModel.client = new Client(addr);
 
                 _ = _connectViewModel.client.GetServerId();
-                _connectViewModel.IpAddressEnabled = false;
-
+                
                 _connectViewModel.NotifyPropertyChanged("conn");
 
             }
@@ -107,7 +105,6 @@ namespace IoT1.Model
                 ((StreamPackets)_connectViewModel.StartStopComm).CancelSource();
                 _connectViewModel.client.CloseConnection();
                 _connectViewModel.client = null;
-                _connectViewModel.IpAddressEnabled = true;
                 _connectViewModel.NotifyPropertyChanged("stop");
             }
             catch (Exception e)

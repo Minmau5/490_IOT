@@ -3,63 +3,107 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:IoT1"
+      xmlns:local="clr-namespace:IoT1" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage"
       Background="#c6dddd"
       >
     
-    <!--
-    <Grid>
-        <Label Content="Polling Frequency (seconds):" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="PollingFrequencyTextBox" HorizontalAlignment="Left" Height="23" Margin="220,10,0,0" TextWrapping="Wrap" Text="{Binding PollingFrequency}" VerticalAlignment="Top" Width="120"/>
-        <Label Content="gRPC IP Address:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="GRpcIPAddressTextBox" HorizontalAlignment="Left" Height="23" Margin="220,50,0,0" TextWrapping="Wrap" Text="{Binding GRpcIPAddress}" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Camera API Server:" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="CameraApiServerTextBox" HorizontalAlignment="Left" Height="23" Margin="220,90,0,0" TextWrapping="Wrap" Text="{Binding CameraApiServer}" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Database Connection String:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="DatabaseConnectionStringTextBox" HorizontalAlignment="Left" Height="23" Margin="220,130,0,0" TextWrapping="Wrap" Text="{Binding DatabaseConnectionString}" VerticalAlignment="Top" Width="280"/>
-        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="90,270,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}"/>
-    </Grid>
-    -->
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 20 0 0" Text="Polling Frequency:"/>
-        <Border CornerRadius="5" Background="Transparent" Grid.Row="0" Grid.Column="1" Margin="20" Width="224" Height="24" HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
-            <TextBox Name="PollingFreqTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PollingFrequency, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
-        </Border>
-
-        <TextBlock  Grid.Row="1" Grid.Column="0" Margin="0 20 0 0" Text="gRPC IP Address:"/>
-        <Border CornerRadius="5" Background="Transparent" Grid.Row="1" Grid.Column="1" Margin="20" Width="224" Height="24"  HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
-            <TextBox Name="GRPCIpAddressTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PreviousGRPCIpAddress, Mode=OneWay}" GotFocus="TextBox_GotFocus" />
-        </Border>
         
-        <TextBlock  Grid.Row="2" Grid.Column="0" Margin="0 20 0 0" Text="Camera API Server:"/>
-        <Border CornerRadius="5" Background="Transparent" Grid.Row="2" Grid.Column="1" Margin="20" Width="224" Height="24" HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
-            <TextBox Name="CameraApiServerTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PreviousCameraApiServer, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
-        </Border>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <mah:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE704;" Foreground="#4f5858"></mah:FontIcon>
+                <Label Content="Dashboard"/>
+            </StackPanel>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="Polling Frequency:" MaxWidth="100" TextWrapping="Wrap"/>
+                <Border CornerRadius="5" Background="Transparent"  Margin="20" Width="200" Height="24" BorderThickness="0.5" BorderBrush="Black">
+                    <TextBox Name="PollingFreqTextBox"  PreviewTextInput="NumberValidationTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PollingFrequency, Mode=OneWay}" GotFocus="TextBox_GotFocus">
+                        <TextBox.ToolTip>
+                            <ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <mah:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7BA;" Foreground="Red" />
+                                    <Label>
+                                        Field reserved for future release
+                                    </Label>
+                                </StackPanel>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
+                </Border>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="Endpoint Address:" MaxWidth="100" TextWrapping="Wrap"/>
+                <Border CornerRadius="5" Background="Transparent" Margin="20" Width="200" Height="24"   BorderThickness="0.5" BorderBrush="Black">
+                    <TextBox Name="GRPCIpAddressTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PreviousGRPCIpAddress, Mode=OneWay}" GotFocus="TextBox_GotFocus" />
+                </Border>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="Get Local Address:" MaxWidth="100" TextWrapping="Wrap"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0 20 0 0" Text="Database Connection String:"/>
-        <Border CornerRadius="5" Background="Transparent" Grid.Row="3" Grid.Column="1" Margin="20" Width="224" Height="24" HorizontalAlignment="Left" BorderThickness="0.5" BorderBrush="Black">
-            <TextBox Background="Transparent" BorderThickness="0" Text="{Binding PreviousDatabaseConnectionString, Mode=OneWay}" GotFocus="TextBox_GotFocus"/>
-        </Border>
+                <Button Content="&#xE93E;" Click="Button_Click" Background="DarkSlateGray" Width="50" Height="24" FontFamily="Segoe MDL2 Assets" Foreground="White" Style="{StaticResource RoundedButton}" Margin="20"/>
+            </WrapPanel>
 
-        <Button Grid.Row="4" Grid.Column="1" Content="Save" Width="80" HorizontalAlignment="Left" Margin="20" Command="{Binding SaveCommand}" Background="DarkSlateGray" BorderBrush="#FFDCAFAF" FontWeight="DemiBold" Height="32" FontSize="16" Foreground="White" Style="{StaticResource RoundedButton}" />
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <mah:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE753;" Foreground="#4f5858"></mah:FontIcon>
+                <Label Content="Database"/>
+            </StackPanel>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock  VerticalAlignment="Center" Text="Database Connection String:" MaxWidth="100" TextWrapping="Wrap"/>
+                <Border CornerRadius="5" Background="Transparent" Margin="20" Width="200" Height="24" BorderThickness="0.5" BorderBrush="Black">
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding DatabaseConnectionString, UpdateSourceTrigger=PropertyChanged}" GotFocus="TextBox_GotFocus"/>
+                </Border>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock  VerticalAlignment="Center" Text="Fetch Data Period (hours):" MaxWidth="100" TextWrapping="Wrap"/>
+                <Border CornerRadius="5" Background="Transparent" Margin="20" Width="200" Height="24" BorderThickness="0.5" BorderBrush="Black">
+                    <TextBox PreviewTextInput="NumberValidationTextBox" Background="Transparent" BorderThickness="0" Text="{Binding DatabasePeriod, UpdateSourceTrigger=PropertyChanged}" GotFocus="TextBox_GotFocus"/>
+                </Border>
+            </WrapPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <mah:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE908;" Foreground="#4f5858"></mah:FontIcon>
+                <Label Content="Remote Sources"/>
+            </StackPanel>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock  VerticalAlignment="Center" Text="Camera API Address:" MaxWidth="100" TextWrapping="Wrap"/>
+                <Border CornerRadius="5" Background="Transparent" Margin="20" MinWidth="200" Height="24" BorderThickness="0.5" BorderBrush="Black">
+                    <TextBox Name="CameraApiServerTextBox" Background="Transparent" BorderThickness="0" Text="{Binding PreviousCameraApiServer, Mode=OneWay}" GotFocus="TextBox_GotFocus">
+                        <TextBox.ToolTip>
+                            <ToolTip>
+                                <StackPanel Orientation="Vertical">
+                                    <mah:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7BA;" Foreground="Red" />
+                                    <Label>
+                                        Field reserved for future release
+                                    </Label>
+                                </StackPanel>
+                            </ToolTip>
+                        </TextBox.ToolTip>
+                    </TextBox>
+                </Border>
+            </WrapPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Bottom">
+            <Button  Content="Save" Margin="20" Width="auto" Command="{Binding SaveCommand}" Background="DarkSlateGray" BorderBrush="#FFDCAFAF" FontWeight="DemiBold" Height="32" FontSize="16" Foreground="White" Style="{StaticResource RoundedButton}" />
+        </StackPanel>
+
     </Grid>
     
 </Page>
