@@ -15,38 +15,22 @@ namespace IoT1
         private ConnectViewModel connectCtx;
         private PacketModel packets;
         private readonly SqlConnection connection;
-
-        public MainWindow(SqlConnection connection)
+        private SettingsViewModel settingsViewModel;
+        public MainWindow(SqlConnection connection, string user)
         {
             InitializeComponent();
+            settingsViewModel = new SettingsViewModel();
+
             _viewModel = new NotificationsViewModel();
             DataContext = _viewModel;
             packets = new PacketModel();
-            connectCtx = new ConnectViewModel(packets);
-            redhat_id.Text = "Redhat Agent #12345";
+            connectCtx = new ConnectViewModel(packets, settingsViewModel.PreviousGRPCIpAddress);
+            redhat_id.Text = string.Format("Redhat Agent {0}", user);
             connectCtx.PropertyChanged += ConnectCtx_PropertyChanged;
             this.connection = connection;
+
         }
 
-        /*
-        // Overloaded constructor to accept the username and then display it at the top of the page
-        
-        public MainWindow() : this(string.Empty)
-        {
-        }
-
-        // Overloaded constructor to accept the username
-        public MainWindow(string username)
-        {
-            InitializeComponent();
-            redhat_id.Text = username;
-
-            _viewModel = new NotificationsViewModel();
-            DataContext = _viewModel;
-            packets = new PacketModel();
-            connectCtx = new ConnectViewModel(packets);
-        }
-        */
 
         private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -107,6 +91,7 @@ namespace IoT1
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
+            connectCtx.IpAddress = settingsViewModel.PreviousGRPCIpAddress;
             MainFrame1.Content = new HomePage(connectCtx);
         }
 
@@ -117,7 +102,7 @@ namespace IoT1
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame1.Content = new SettingsPage();
+            MainFrame1.Content = new SettingsPage(settingsViewModel);
         }
 
         private void AddNotification_Click(object sender, RoutedEventArgs e)
@@ -128,7 +113,7 @@ namespace IoT1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame1.Content = new Location(packets);
+            MainFrame1.Content = new Mission(settingsViewModel.DatabaseConnectionString, settingsViewModel.DatabasePeriod);
         }
 
         private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

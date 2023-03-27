@@ -38,7 +38,7 @@
             
             <Label Content="Endpoint Address" Grid.Row="0" Grid.Column="0"/>
             <Border CornerRadius="5" Background="Transparent" Grid.Row="1" Grid.Column="0" Margin="4 8 4 8" BorderThickness="0.5" BorderBrush="Black">
-                <TextBox Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IpAddressEnabled}" Background="Transparent" BorderThickness="0" Margin="5 5 5 5"/>
+                <TextBox Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" IsEnabled="false" Background="Transparent" BorderThickness="0" Margin="5 5 5 5"/>
             </Border>
 
             

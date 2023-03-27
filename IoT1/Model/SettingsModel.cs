@@ -13,16 +13,20 @@ namespace IoT1
         public string CameraApiServer { get; set; }
         public string DatabaseConnectionString { get; set; }
 
+        public string DatabasePeriod { get; set; }
+
+
         public SettingsModel()
         {
         }
 
-        public SettingsModel(int pollingFrequency, string gRPCIpAddress, string cameraApiServer, string databaseConnectionString)
+        public SettingsModel(int pollingFrequency, string gRPCIpAddress, string cameraApiServer, string databaseConnectionString, string databasePeriod)
         {
             PollingFrequency = pollingFrequency;
             GRPCIpAddress = gRPCIpAddress;
             CameraApiServer = cameraApiServer;
             DatabaseConnectionString = databaseConnectionString;
+            DatabasePeriod = databasePeriod;
         }
     }
 }

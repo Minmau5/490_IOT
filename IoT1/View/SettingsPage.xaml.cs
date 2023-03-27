@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,10 +32,10 @@ namespace IoT1
         */
 
         private readonly SettingsViewModel _viewModel;
-        public SettingsPage()
+        public SettingsPage(SettingsViewModel viewModel)
         {
             InitializeComponent();
-            _viewModel = new SettingsViewModel();
+            _viewModel = viewModel;
             DataContext = _viewModel;
         }
 
@@ -46,6 +49,7 @@ namespace IoT1
                 if (textBox.Name == "GRPCIpAddressTextBox") propertyName = "GRPCIpAddress";
                 if (textBox.Name == "CameraApiServerTextBox") propertyName = "CameraApiServer";
                 if (textBox.Name == "DatabaseConnectionStringTextBox") propertyName = "DatabaseConnectionString";
+                if (textBox.Name == "DatabasePeriod") propertyName = "DatabasePeriod";
 
                 if (!string.IsNullOrEmpty(propertyName))
                 {
@@ -60,8 +64,31 @@ namespace IoT1
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()) //check NET connection
+            {
+                string localIP;
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+                {
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    localIP = endPoint.Address.ToString();
+                }
 
+                GRPCIpAddressTextBox.Text = localIP;
+                
+            }
+            else
+            {
+                MessageBox.Show("Unable to find your local address", "Settings", MessageBoxButton.OK, MessageBoxImage.Hand);
+            }
+        }
 
-
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
     }
 }

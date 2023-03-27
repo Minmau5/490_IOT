@@ -57,7 +57,7 @@ namespace IoT1
                     */
                     MessageBox.Show("Login Successfull", "Login/Registration", MessageBoxButton.OK);
 
-                    MainWindow window = new MainWindow(sqlCon);
+                    MainWindow window = new MainWindow(sqlCon, txtUsername.Text);
                     Application.Current.MainWindow.Close();
                     window.ShowDialog();
                 }

@@ -81,9 +81,9 @@ namespace IoT1
                     if (coords.Length != 2)
                         return;
 
-                    if (double.TryParse(coords[0], out double longitude) && double.TryParse(coords[1], out double latitude))
+                    if (double.TryParse(coords[0], out double latitude) && double.TryParse(coords[1], out double longitude))
                     {
-                        Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
+                        Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude*100, longitude * -100);
                         TestLocation.Center = location;
 
                         

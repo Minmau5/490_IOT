@@ -117,18 +117,19 @@
 
                 <!--Stations Button-->
                 <Button Style="{StaticResource MenuButton}"
-                    Margin="0 2 0 0" Visibility="Hidden"
+                    Margin="0 2 0 0"
                     Click="Button_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="140">
                         <Image Source="\Images\stations.png" Height="27" Width="27" Margin="0 2 2 0" HorizontalAlignment="Left"/>
-                        <TextBlock Text="Stations" FontSize="22" Margin="5 5 0 2"/>
+                        <TextBlock Text="Mission" FontSize="22" Margin="5 5 0 2"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
-
+            
 
             <!--Settings Button-->
             <StackPanel Grid.Column="0" Grid.Row="2" Margin="0 0 0 24" VerticalAlignment="Bottom">
+                
                 <Button Style="{StaticResource MenuButton}"
                     Margin="0 2 0 0"
                     Click="SettingsButton_Click">
@@ -163,8 +164,6 @@
             <Grid Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal"  >
                     <TextBlock x:Name="redhat_id" Margin="16 16 8 8" FontSize="16"  Width="auto"/>
-                    
-
                 </StackPanel>
             </Grid>
             
