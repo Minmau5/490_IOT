@@ -16,7 +16,7 @@ namespace IoT1
         private PacketModel packets;
         private readonly SqlConnection connection;
         private SettingsViewModel settingsViewModel;
-        public MainWindow(SqlConnection connection)
+        public MainWindow(SqlConnection connection, string user)
         {
             InitializeComponent();
             settingsViewModel = new SettingsViewModel();
@@ -25,31 +25,12 @@ namespace IoT1
             DataContext = _viewModel;
             packets = new PacketModel();
             connectCtx = new ConnectViewModel(packets, settingsViewModel.PreviousGRPCIpAddress);
-            redhat_id.Text = "Redhat Agent #12345";
+            redhat_id.Text = string.Format("Redhat Agent {0}", user);
             connectCtx.PropertyChanged += ConnectCtx_PropertyChanged;
             this.connection = connection;
 
         }
 
-        /*
-        // Overloaded constructor to accept the username and then display it at the top of the page
-        
-        public MainWindow() : this(string.Empty)
-        {
-        }
-
-        // Overloaded constructor to accept the username
-        public MainWindow(string username)
-        {
-            InitializeComponent();
-            redhat_id.Text = username;
-
-            _viewModel = new NotificationsViewModel();
-            DataContext = _viewModel;
-            packets = new PacketModel();
-            connectCtx = new ConnectViewModel(packets);
-        }
-        */
 
         private void ConnectCtx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

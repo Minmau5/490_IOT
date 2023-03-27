@@ -47,7 +47,7 @@ namespace IoT1
                 cmd.ExecuteNonQuery();
                 conn.Close();
                 MessageBox.Show("Registration Completed", "Login/Registration", MessageBoxButton.OK);
-                MainWindow window = new MainWindow(conn);
+                MainWindow window = new MainWindow(conn, txt_Username.Text);
                 Application.Current.MainWindow.Close();
                 window.ShowDialog();
             }

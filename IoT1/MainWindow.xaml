@@ -164,8 +164,6 @@
             <Grid Grid.Row="0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal"  >
                     <TextBlock x:Name="redhat_id" Margin="16 16 8 8" FontSize="16"  Width="auto"/>
-                    
-
                 </StackPanel>
             </Grid>
             
